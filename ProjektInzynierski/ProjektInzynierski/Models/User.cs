@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjektInzynierski.Models
 {
@@ -13,7 +14,7 @@ namespace ProjektInzynierski.Models
             RelationIdUserNavigation = new HashSet<Relation>();
             UserHobby = new HashSet<UserHobby>();
         }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdUser { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

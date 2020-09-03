@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,18 @@ namespace ProjektInzynierski.Controllers
 
             return user;
         }
-
+        [Route("ByEmail/{email}")]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetUser(string email)
+        {
+            var user =  _context.User.Where(b => b.Email == email).FirstOrDefault();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+        
         // PUT: api/Users/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
@@ -115,5 +127,6 @@ namespace ProjektInzynierski.Controllers
         {
             return _context.User.Any(e => e.IdUser == id);
         }
+        
     }
 }
