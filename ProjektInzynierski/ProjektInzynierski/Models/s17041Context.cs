@@ -30,7 +30,7 @@ namespace ProjektInzynierski.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=db-mssql;Initial Catalog=s17041;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Server='db-mssql';Database=s17041;Trusted_Connection=True;");
             }
         }
 
@@ -175,10 +175,12 @@ namespace ProjektInzynierski.Models
                     .HasName("Hobby_pk");
 
                 entity.Property(e => e.IdHobby).ValueGeneratedNever();
-                entity.Property(e => e.HobbyName).IsRequired().HasMaxLength(64);
-                entity.Property(e => e.Description)
-                    .IsRequired(false)
-                    .HasMaxLength(500);
+
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.Property(e => e.HobbyName)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Relation>(entity =>
@@ -208,8 +210,6 @@ namespace ProjektInzynierski.Models
                 entity.HasKey(e => e.IdUser)
                     .HasName("User_pk");
 
-                entity.Property(e => e.IdUser).ValueGeneratedNever();
-
                 entity.Property(e => e.Avatar).HasColumnType("image");
 
                 entity.Property(e => e.Birthday).HasColumnType("date");
@@ -237,18 +237,6 @@ namespace ProjektInzynierski.Models
                     .HasName("User_Hobby_pk");
 
                 entity.ToTable("User_Hobby");
-
-                entity.HasOne(d => d.IdHobbyNavigation)
-                    .WithMany(p => p.UserHobby)
-                    .HasForeignKey(d => d.IdHobby)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("User_Hobby_Hobby");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.UserHobby)
-                    .HasForeignKey(d => d.IdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("User_Hobby_User");
             });
         }
     }

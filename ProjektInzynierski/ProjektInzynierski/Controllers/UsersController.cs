@@ -87,10 +87,13 @@ namespace ProjektInzynierski.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            
             _context.User.Add(user);
             try
             {
+               
                 await _context.SaveChangesAsync();
+                
             }
             catch (DbUpdateException)
             {

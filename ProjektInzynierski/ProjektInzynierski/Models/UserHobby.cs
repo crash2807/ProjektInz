@@ -7,8 +7,5 @@ namespace ProjektInzynierski.Models
     {
         public int IdUser { get; set; }
         public int IdHobby { get; set; }
-
-        public virtual Hobby IdHobbyNavigation { get; set; }
-        public virtual User IdUserNavigation { get; set; }
     }
 }
