@@ -115,7 +115,7 @@ namespace ProjektInzynierski.Models
                 entity.HasKey(e => e.IdGift)
                     .HasName("Gift_pk");
 
-                entity.Property(e => e.IdGift).ValueGeneratedNever();
+                
 
                 entity.Property(e => e.Brand).HasMaxLength(30);
 
@@ -174,7 +174,7 @@ namespace ProjektInzynierski.Models
                 entity.HasKey(e => e.IdHobby)
                     .HasName("Hobby_pk");
 
-                entity.Property(e => e.IdHobby).ValueGeneratedNever();
+               
 
                 entity.Property(e => e.Description).HasMaxLength(500);
 
